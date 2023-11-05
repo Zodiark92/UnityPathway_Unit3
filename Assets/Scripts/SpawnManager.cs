@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject obstaclePrefab;
+    public GameObject[] obstaclePrefabs;
 
     private Vector3 spawnPos = new Vector3(25,0,0);
 
-    private float startDelay = 2;
+    private float startDelay = 4;
     private float spawnInterval = 2;
 
     private PlayerController playerController;
@@ -20,17 +20,12 @@ public class SpawnManager : MonoBehaviour
         InvokeRepeating("SpawnObstacle", startDelay, spawnInterval);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void SpawnObstacle()
     {
         if (!playerController.gameOver)
         {
-            Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
+            int randomIndex = Random.Range(0, obstaclePrefabs.Length);
+            Instantiate(obstaclePrefabs[randomIndex], spawnPos, obstaclePrefabs[randomIndex].transform.rotation);
         }
     }
        

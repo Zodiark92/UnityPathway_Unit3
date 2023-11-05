@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  superSpeed: 40
 --- !u!1 &6748077734057106694
 GameObject:
   m_ObjectHideFlags: 0
