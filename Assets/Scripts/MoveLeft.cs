@@ -1,46 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
-    [SerializeField]
-    public float speed = 10;
-
-    [SerializeField]
-    public float superSpeed = 20f;
+    public float speed = 30;
+    private float leftBound = -10f;
 
     private PlayerController playerController;
-    private float leftBound = -15f;
-    private float speedMovement;
 
-    // Start is called before the first frame update
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();   
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerController.superSpeed)
-        {
-            speedMovement = superSpeed;
-
-        } else
-        {
-            speedMovement = speed;
+        if (!playerController.gameOver) {
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
 
-        
-        if(!playerController.gameOver && playerController.gameStart)
-        {
-            transform.Translate(Vector3.left * speedMovement * Time.deltaTime);
-        }
+        if (transform.position.x < leftBound && !gameObject.CompareTag("Background")) {
 
-        if(transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
-        {
             Destroy(gameObject);
         }
         
