@@ -6,12 +6,16 @@ public class PlayerControllerZ : MonoBehaviour
     private Vector3 upperBoundPos = new Vector3(0, 10.95f, -25.2f);
     public float jumpForce = 200f;
     private float maxJumpPos = 7.36f;
-    
+
+    private AudioSource audioSource;
+
+    public AudioClip bongSound;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         playerBody = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,9 +36,10 @@ public class PlayerControllerZ : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground")) {
+        if (collision.gameObject.CompareTag("Ground") && !GetComponent<ItemController>().gameOver) {
 
             playerBody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            audioSource.PlayOneShot(bongSound, 1f);
             
         }
     }
